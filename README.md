@@ -61,4 +61,4 @@ git clone https://github.com/vanjamaxwell/calendar-and-diary-app.git
 
 cd calendar-diary-app
 
-OPEM THE index.html
+OPEN THE index.html
