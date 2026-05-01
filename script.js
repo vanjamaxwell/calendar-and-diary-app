@@ -8,17 +8,45 @@ const noteText = document.getElementById("noteText");
 const saveNote = document.getElementById("saveNote");
 const clearNote = document.getElementById("clearNote");
 
+const taskInput = document.getElementById("taskInput");
+const addTask = document.getElementById("addTask");
+const taskList = document.getElementById("taskList");
+
 const selectedDateDisplay = document.getElementById("selectedDateDisplay");
+
+const tabDiary = document.getElementById("tabDiary");
+const tabTasks = document.getElementById("tabTasks");
+
+const diaryBox = document.getElementById("diaryBox");
+const taskBox = document.getElementById("taskBox");
 
 let currentDate = new Date();
 let selectedDate = null;
 
-// format date key
+/* =========================
+   STORAGE SYSTEM
+========================= */
+function getData(date) {
+  return JSON.parse(localStorage.getItem(date)) || {
+    note: "",
+    tasks: []
+  };
+}
+
+function saveData(date, data) {
+  localStorage.setItem(date, JSON.stringify(data));
+}
+
+/* =========================
+   FORMAT DATE
+========================= */
 function formatDate(y, m, d) {
   return `${y}-${m + 1}-${d}`;
 }
 
-// render calendar
+/* =========================
+   RENDER CALENDAR
+========================= */
 function renderCalendar() {
   calendar.innerHTML = "";
 
@@ -68,7 +96,7 @@ function renderCalendar() {
       selectedDate = dateKey;
       selectedDateDisplay.textContent = selectedDate;
 
-      loadNote();
+      loadAllData();
       renderCalendar();
     });
 
@@ -76,34 +104,121 @@ function renderCalendar() {
   }
 }
 
-// save note
+/* =========================
+   LOAD DATA (DIARY + TASKS)
+========================= */
+function loadAllData() {
+  if (!selectedDate) return;
+
+  const data = getData(selectedDate);
+
+  // diary
+  noteText.value = data.note;
+
+  // tasks
+  renderTasks(data.tasks);
+}
+
+/* =========================
+   SAVE DIARY NOTE
+========================= */
 saveNote.addEventListener("click", () => {
   if (!selectedDate) {
     alert("Select a date first!");
     return;
   }
 
-  localStorage.setItem(selectedDate, noteText.value);
+  const data = getData(selectedDate);
+  data.note = noteText.value;
+
+  saveData(selectedDate, data);
+
   alert("Note saved!");
 });
 
-// load note
-function loadNote() {
-  noteText.value = localStorage.getItem(selectedDate) || "";
-}
-
-// clear note (FIXED)
+/* =========================
+   CLEAR NOTE
+========================= */
 clearNote.addEventListener("click", () => {
   if (!selectedDate) {
     alert("Select a date first!");
     return;
   }
 
-  localStorage.removeItem(selectedDate);
+  const data = getData(selectedDate);
+  data.note = "";
+
+  saveData(selectedDate, data);
   noteText.value = "";
 });
 
-// navigation
+/* =========================
+   TASKS
+========================= */
+addTask.addEventListener("click", () => {
+  if (!selectedDate) {
+    alert("Select a date first!");
+    return;
+  }
+
+  if (taskInput.value.trim() === "") return;
+
+  const data = getData(selectedDate);
+  data.tasks.push(taskInput.value);
+
+  saveData(selectedDate, data);
+
+  taskInput.value = "";
+  renderTasks(data.tasks);
+});
+
+function renderTasks(tasks) {
+  taskList.innerHTML = "";
+
+  tasks.forEach((task, index) => {
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <span>${task}</span>
+      <button onclick="deleteTask(${index})">X</button>
+    `;
+
+    taskList.appendChild(li);
+  });
+}
+
+window.deleteTask = function(index) {
+  const data = getData(selectedDate);
+
+  data.tasks.splice(index, 1);
+
+  saveData(selectedDate, data);
+
+  renderTasks(data.tasks);
+};
+
+/* =========================
+   TABS
+========================= */
+tabDiary.addEventListener("click", () => {
+  diaryBox.classList.remove("hidden");
+  taskBox.classList.add("hidden");
+
+  tabDiary.classList.add("active-tab");
+  tabTasks.classList.remove("active-tab");
+});
+
+tabTasks.addEventListener("click", () => {
+  diaryBox.classList.add("hidden");
+  taskBox.classList.remove("hidden");
+
+  tabTasks.classList.add("active-tab");
+  tabDiary.classList.remove("active-tab");
+});
+
+/* =========================
+   NAVIGATION
+========================= */
 prevBtn.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   renderCalendar();
@@ -114,5 +229,7 @@ nextBtn.addEventListener("click", () => {
   renderCalendar();
 });
 
-// start app
+/* =========================
+   START APP
+========================= */
 renderCalendar();

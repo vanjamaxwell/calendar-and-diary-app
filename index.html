@@ -8,68 +8,90 @@
 </head>
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <!-- App Title -->
-    <header>
-      <h1>📅 Calendar Diary</h1>
-      <p class="subtitle">Track your daily thoughts</p>
-    </header>
+  <!-- App Title -->
+  <header>
+    <h1>📅 Calendar Diary</h1>
+    <p class="subtitle">Track your daily thoughts & tasks</p>
+  </header>
 
-    <!-- Calendar Section -->
-    <section class="calendar-section">
+  <!-- Calendar Section -->
+  <section class="calendar-section">
 
-      <!-- Month Navigation -->
-      <div class="calendar-header">
-        <button id="prevBtn">⬅</button>
-        <h2 id="monthYear">Month Year</h2>
-        <button id="nextBtn">➡</button>
-      </div>
+    <!-- Month Navigation -->
+    <div class="calendar-header">
+      <button id="prevBtn">⬅</button>
+      <h2 id="monthYear">Month Year</h2>
+      <button id="nextBtn">➡</button>
+    </div>
 
-      <!-- Week Days -->
-      <div class="weekdays">
-        <div>Sun</div>
-        <div>Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-      </div>
+    <!-- Week Days -->
+    <div class="weekdays">
+      <div>Sun</div>
+      <div>Mon</div>
+      <div>Tue</div>
+      <div>Wed</div>
+      <div>Thu</div>
+      <div>Fri</div>
+      <div>Sat</div>
+    </div>
 
-      <!-- Calendar Grid -->
-      <div id="calendar" class="calendar-grid"></div>
+    <!-- Calendar Grid -->
+    <div id="calendar" class="calendar-grid"></div>
 
-    </section>
+  </section>
 
-    <!-- Selected Date Display -->
-    <section class="selected-date">
-      <h3>Selected Date:</h3>
-      <p id="selectedDateDisplay">None</p>
-    </section>
+  <!-- Selected Date Display -->
+  <section class="selected-date">
+    <h3>Selected Date:</h3>
+    <p id="selectedDateDisplay">None</p>
+  </section>
 
-    <!-- Notes Section -->
-    <section class="notes-section">
-      <h3>📝 Diary Entry</h3>
+  <!-- Tabs -->
+  <section class="tabs">
+    <button id="tabDiary" class="active-tab">📝 Diary</button>
+    <button id="tabTasks">✅ Tasks</button>
+  </section>
 
-      <textarea 
-        id="noteText" 
-        placeholder="Write your thoughts for this day..."
-      ></textarea>
+  <!-- DIARY SECTION -->
+  <section id="diaryBox" class="notes-section">
 
-      <div class="note-actions">
-        <button id="saveNote">💾 Save</button>
-        <button id="clearNote">🗑 Clear</button>
-      </div>
-    </section>
+    <h3>📝 Diary Entry</h3>
 
-    <!-- Footer -->
-    <footer>
-      <p>Calendar Diary App © 2026</p>
-    </footer>
+    <textarea 
+      id="noteText" 
+      placeholder="Write your thoughts for this day..."
+    ></textarea>
 
-  </div>
+    <div class="note-actions">
+      <button id="saveNote">💾 Save Note</button>
+      <button id="clearNote">🗑 Clear</button>
+    </div>
 
-  <script src="script.js"></script>
+  </section>
+
+  <!-- TASKS SECTION -->
+  <section id="taskBox" class="notes-section hidden">
+
+    <h3>✅ To-Do List</h3>
+
+    <div class="task-input">
+      <input id="taskInput" type="text" placeholder="Add a task..." />
+      <button id="addTask">Add</button>
+    </div>
+
+    <ul id="taskList"></ul>
+
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Calendar Diary App © 2026</p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
