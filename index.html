@@ -1,28 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar Diary</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar Diary App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>My Calendar Diary</h1>
+  <div class="app">
 
-    <div>
-        <button id="prev">Prev</button>
-        <span id="monthYear"></span>
-        <button id="next">Next</button>
-    </div>
+    <!-- App Title -->
+    <header>
+      <h1>📅 Calendar Diary</h1>
+      <p class="subtitle">Track your daily thoughts</p>
+    </header>
 
-    <div id="calendar"></div>
+    <!-- Calendar Section -->
+    <section class="calendar-section">
 
-    <h2 id="selectedDate">Select a date</h2>
-    <textarea id="entry" placeholder="Write your diary..."></textarea>
-    <br>
-    <button id="save">Save</button>
+      <!-- Month Navigation -->
+      <div class="calendar-header">
+        <button id="prevBtn">⬅</button>
+        <h2 id="monthYear">Month Year</h2>
+        <button id="nextBtn">➡</button>
+      </div>
 
-    <script src="script.js"></script>
+      <!-- Week Days -->
+      <div class="weekdays">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+      </div>
+
+      <!-- Calendar Grid -->
+      <div id="calendar" class="calendar-grid"></div>
+
+    </section>
+
+    <!-- Selected Date Display -->
+    <section class="selected-date">
+      <h3>Selected Date:</h3>
+      <p id="selectedDateDisplay">None</p>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="notes-section">
+      <h3>📝 Diary Entry</h3>
+
+      <textarea 
+        id="noteText" 
+        placeholder="Write your thoughts for this day..."
+      ></textarea>
+
+      <div class="note-actions">
+        <button id="saveNote">💾 Save</button>
+        <button id="clearNote">🗑 Clear</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Calendar Diary App © 2026</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
